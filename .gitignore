@@ -1,0 +1,32 @@
+# ---------------------------------------------------------------------------
+# Local-only design work. These are working papers, not product code.
+# ---------------------------------------------------------------------------
+DESIGN.md
+PRODUCT.md
+.impeccable/
+
+# Generated provenance from the local design tools.
+assets/img/PROVENANCE.json
+
+# ---------------------------------------------------------------------------
+# Runtimes, caches and editor noise.
+# ---------------------------------------------------------------------------
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+*.bak
+*.tmp
+*.log
+
+# ---------------------------------------------------------------------------
+# Tracked on purpose:
+#   index.html, reconstruction.html, README.md
+#   css/, js/, tools/
+#   assets/  (shipping GIFs, JPEGs, MP3s, fonts, vendored libraries)
+# ---------------------------------------------------------------------------

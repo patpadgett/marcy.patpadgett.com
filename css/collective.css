@@ -1,0 +1,266 @@
+/* collective.css — a fast-cut operations film that takes over the page.
+ * Everything here is motion: feed cuts, type-in lines, glitch wipes, a drift
+ * camera, scan sweep, objectives snapping to done, then the end of signal. */
+#collective {
+  position: fixed; inset: 0; z-index: 200;
+  background: #03070a; color: #8dfbe4;
+  font: 12px/1.45 "Courier New", Courier, monospace;
+  display: none; flex-direction: column; overflow: hidden;
+}
+#collective.on { display: flex; }
+#collective * { box-sizing: border-box; }
+
+/* moving substrate: scanlines, a travelling refresh band, slow drift */
+#collective::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 3;
+  background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0 2px, rgba(0, 0, 0, .28) 2px 3px);
+  animation: co-scan 1.6s linear infinite;
+}
+@keyframes co-scan { to { transform: translateY(3px); } }
+#collective::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 18vh; top: -20vh;
+  z-index: 4; pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(141, 251, 228, .07) 55%, transparent);
+  animation: co-sweep 3.4s linear infinite;
+}
+@keyframes co-sweep { to { transform: translateY(135vh); } }
+
+#collective .co-head {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  padding: 8px 16px; border-bottom: 1px solid #1a4b47;
+  background: linear-gradient(90deg, #071a1b, #03070a 70%);
+  letter-spacing: .14em; text-transform: uppercase; position: relative; z-index: 5;
+}
+#collective .co-title { color: #e6fff9; font-weight: 700; font-size: 15px; }
+#collective .co-title b { color: #ff5d6c; }
+#collective .co-meta { color: #4b9b92; font-size: 10px; text-align: right; }
+#collective .co-meta span { color: #8dfbe4; }
+#collective .live { color: #ff5d6c; animation: co-blink .7s steps(1, end) infinite; }
+@keyframes co-blink { 50% { opacity: .18; } }
+
+/* the drifting camera: everything inside gets a slow pan and punch zoom */
+#collective .co-cam {
+  flex: 1; min-height: 0; position: relative; z-index: 5;
+  animation: co-drift 11s ease-in-out infinite alternate;
+  transform-origin: 52% 46%;
+}
+@keyframes co-drift {
+  0%   { transform: scale(.995) translate(0, 0); }
+  40%  { transform: scale(.985) translate(-.4%, .2%); }
+  100% { transform: scale(.992) translate(.4%, -.2%); }
+}
+#collective .co-cam.punch { animation: co-punch .26s cubic-bezier(.16, 1, .3, 1); }
+@keyframes co-punch {
+  0% { transform: scale(1.035); filter: brightness(1.7); }
+  100% { transform: scale(.995); filter: brightness(1); }
+}
+
+#collective .co-grid { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 300px; }
+#collective .co-feed {
+  position: relative;
+  min-width: 0; min-height: 0; display: flex; flex-direction: column;
+  border-right: 1px solid #143b38; overflow: hidden;
+}
+#collective .co-mesh {
+  position: absolute; right: 16px; bottom: 12px; width: 176px; height: 86px;
+  pointer-events: none; opacity: .38; z-index: 1;
+}
+#collective .co-mesh i {
+  position: absolute; width: 3px; height: 3px; background: #8dfbe4;
+  animation: co-node 1.9s steps(1, end) infinite;
+}
+#collective .co-mesh i:nth-child(5n) { background: #ff5d6c; }
+@keyframes co-node { 0%, 68% { opacity: .12; } 69%, 100% { opacity: 1; } }
+#collective pre { position: relative; z-index: 2; }
+#collective .co-feed-head {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 14px; border-bottom: 1px solid #143b38;
+  background: #061214; color: #4b9b92; font-size: 11px; letter-spacing: .1em;
+}
+#collective .co-feed-head b { color: #e6fff9; font-weight: 400; }
+#collective pre {
+  flex: 1; min-height: 0; margin: 0; padding: 12px 14px;
+  overflow: hidden; white-space: pre-wrap; word-break: break-word;
+  color: #8dfbe4; text-shadow: 0 0 9px rgba(141, 251, 228, .28);
+}
+#collective pre .warn { color: #ffcf5d; }
+#collective pre .bad { color: #ff5d6c; }
+#collective .cursor {
+  display: inline-block; width: 8px; height: 13px; margin-left: 2px;
+  background: #8dfbe4; animation: co-blink .5s steps(1, end) infinite;
+  vertical-align: -2px;
+}
+
+/* a feed entering/leaving the frame, like a cut in a film */
+#collective .co-feed.in  { animation: co-in .22s cubic-bezier(.16, 1, .3, 1) both; }
+#collective .co-feed.out { animation: co-out .16s ease-in both; }
+@keyframes co-in {
+  from { opacity: 0; transform: translateX(26px) skewX(-7deg); filter: blur(3px) brightness(2); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+@keyframes co-out {
+  to { opacity: 0; transform: translateX(-34px) skewX(6deg); filter: blur(4px) brightness(1.8); }
+}
+
+/* a hard glitch bar that crosses the frame on each cut */
+#co-glitch {
+  position: fixed; inset: 0; z-index: 210; pointer-events: none;
+  opacity: 0; mix-blend-mode: screen;
+  background: linear-gradient(180deg,
+    transparent 18%, rgba(255, 40, 80, .30) 19% 21%, transparent 22%,
+    transparent 46%, rgba(60, 220, 255, .28) 47% 49%, transparent 50%,
+    transparent 72%, rgba(255, 255, 255, .22) 73% 74%, transparent 75%);
+  transform: translateX(-8%);
+}
+#co-glitch.hit { animation: co-glitch .19s steps(2, end) 1; }
+@keyframes co-glitch {
+  0%   { opacity: 0; transform: translateX(-12%) scaleY(1); }
+  25%  { opacity: 1; transform: translateX(9%) scaleY(2.2); }
+  55%  { opacity: .7; transform: translateX(-5%) scaleY(.7); }
+  100% { opacity: 0; transform: translateX(12%) scaleY(1); }
+}
+
+#collective .co-side { padding: 10px 14px; overflow: hidden; }
+#collective .co-side h2 {
+  margin: 0 0 10px; font-size: 11px; letter-spacing: .16em;
+  color: #4b9b92; text-transform: uppercase; font-weight: 400;
+}
+#collective .co-obj { list-style: none; margin: 0; padding: 0; }
+#collective .co-obj li {
+  padding: 5px 0; border-bottom: 1px dotted #143b38; color: #4b9b92;
+  transition: color .12s, transform .12s;
+}
+#collective .co-obj li.done {
+  color: #e6fff9; transform: translateX(4px);
+  text-shadow: 0 0 12px rgba(230, 255, 249, .6);
+}
+#collective .co-obj li.last.done { color: #ff5d6c; font-weight: 700; }
+#collective .co-obj b { color: #8dfbe4; font-weight: 400; }
+#collective .co-pct { margin-top: 14px; padding: 9px; border: 1px solid #1a4b47; background: #061214; color: #e6fff9; }
+#collective .co-pct span { color: #ff5d6c; }
+#collective .co-bar { margin-top: 7px; letter-spacing: -.1em; white-space: nowrap; overflow: hidden; }
+
+#collective .co-ticker {
+  padding: 6px 14px; border-top: 1px solid #143b38; background: #061214;
+  color: #4b9b92; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; position: relative; z-index: 5;
+}
+#collective .co-ticker span {
+  display: inline-block; white-space: nowrap;
+  animation: co-ticker 30s linear infinite;
+}
+@keyframes co-ticker { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+#collective .co-skip { color: #4b9b92; text-decoration: underline; font-size: 10px; }
+#collective .co-skip:hover { color: #ff5d6c; }
+
+/* the countdown over the white confession page */
+#coCountdown {
+  position: fixed; inset: 0; z-index: 190; display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .82); text-align: center;
+  font: 700 clamp(40px, 9vw, 110px)/1 "Courier New", monospace;
+  color: rgba(10, 10, 10, .86); letter-spacing: -.04em;
+  text-shadow: 0 0 22px rgba(255, 255, 255, .95);
+}
+#coCountdown.on { display: flex; }
+#coCountdown small {
+  font: 11px/1.6 "Courier New", monospace; letter-spacing: .24em;
+  color: #666; text-transform: uppercase; margin-bottom: 18px;
+}
+#coCountdown .co-count-n { animation: count-in .9s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes count-in {
+  from { opacity: 0; transform: scale(1.7); filter: blur(7px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+#coCountdown .co-girl {
+  position: absolute; bottom: 12%; font: 400 clamp(14px, 2.4vw, 22px)/1.5 "Courier New", monospace;
+  color: #222; text-align: center; max-width: 80vw;
+}
+
+#collective .co-tabs {
+  display: flex; gap: 4px; padding: 5px 10px; border-bottom: 1px solid #143b38;
+  background: #040d0f; position: relative; z-index: 6;
+}
+#collective .co-tabs button {
+  font: 10px "Courier New", monospace; letter-spacing: .1em;
+  padding: 4px 9px; background: transparent; color: #4b9b92;
+  border: 1px solid #143b38; cursor: pointer;
+}
+#collective .co-tabs button:hover { border-color: #8dfbe4; color: #e6fff9; }
+#collective .co-tabs button.active { background: #8dfbe4; color: #02100e; border-color: #8dfbe4; }
+#collective .co-tools {
+  display: flex; gap: 10px; justify-content: flex-end; padding: 4px 14px 0;
+  font-size: 10px; position: relative; z-index: 6;
+}
+#collective .co-tools button {
+  font: 10px "Courier New", monospace; letter-spacing: .1em;
+  background: transparent; border: 0; border-bottom: 1px dotted #1a4b47;
+  color: #4b9b92; cursor: pointer; padding: 2px 0;
+}
+#collective .co-tools button:hover { color: #ff5d6c; }
+
+#collective .co-globe-wrap {
+  position: relative; margin: 8px 0 10px; border: 1px solid #143b38;
+  background: #02080a; overflow: hidden;
+}
+#collective .co-globe-wrap canvas { display: block; width: 100%; height: auto; }
+#collective .co-globe-wrap figcaption {
+  position: absolute; right: 8px; bottom: 6px; font-size: 9px;
+  letter-spacing: .14em; color: #4b9b92; text-transform: uppercase;
+}
+#collective .co-obj li { cursor: pointer; }
+#collective .co-obj li:hover { color: #8dfbe4; }
+#collective .co-detail { display: none; font-size: 9.5px; color: #4b9b92; padding-top: 3px; }
+#collective .co-obj li.open .co-detail { display: block; }
+
+/* transmission: words slam in, RGB split, waveform bars */
+#voiceBox {
+  position: fixed; inset: 0; z-index: 220; display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 0 24px; background: rgba(2, 6, 9, .55);
+  font: 700 clamp(17px, 3.6vw, 38px)/1.35 "Courier New", Courier, monospace;
+  color: #e6fff9; text-shadow: 4px 0 0 rgba(255, 60, 80, .8), -4px 0 0 rgba(60, 200, 255, .7);
+}
+#voiceBox.on { display: flex; }
+#voiceBox small {
+  font: 10px/1 "Courier New", monospace; letter-spacing: .26em;
+  color: #ff5d6c; text-transform: uppercase; margin-bottom: 20px;
+}
+#voiceBox .co-line { animation: co-slam .28s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes co-slam {
+  from { opacity: 0; transform: scale(1.5) skewX(12deg); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+#co-wave { display: flex; gap: 3px; align-items: flex-end; height: 34px; margin-top: 26px; }
+#co-wave i { width: 3px; height: 4px; background: #8dfbe4; animation: co-wave .5s ease-in-out infinite alternate; }
+@keyframes co-wave { to { height: 32px; } }
+
+/* end of signal */
+#staticCanvas {
+  position: fixed; inset: 0; z-index: 300; width: 100%; height: 100%;
+  display: none; background: #000;
+}
+#staticCanvas.on { display: block; }
+
+@media (max-width: 780px) {
+  #collective .co-grid { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; }
+  #collective .co-feed { border-right: 0; border-bottom: 1px solid #143b38; }
+  #collective .co-side { max-height: 34vh; padding: 7px 12px; }
+  #collective .co-side h2 { margin-bottom: 5px; font-size: 10px; }
+  #collective .co-obj li { padding: 2px 0; font-size: 10.5px; }
+  #collective .co-pct { margin-top: 6px; padding: 5px 8px; font-size: 10px; }
+  #collective .co-bar { margin-top: 3px; }
+  #collective .co-meta { max-width: 150px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #collective::before, #collective::after,
+  #collective .co-cam, #collective .co-ticker span,
+  #collective .cursor, #collective .live, #co-wave i,
+  #collective .co-mesh i { animation: none; }
+  #collective .co-cam { transform: none; }
+  #voiceBox { text-shadow: none; }
+  #voiceBox .co-line { animation: none; }
+  #coCountdown .co-count-n { animation: none; }
+  #co-glitch.hit { animation: none; opacity: 0; }
+}

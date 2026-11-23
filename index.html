@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Marcy's little corner of the web. Or was. I'm sixteen, I live in Northvale, and this page is still being built.">
+<meta name="keywords" content="marcy, vale, northvale, volleyball, piano, angelfire, guestbook">
+<title>Marcy's Little Corner of the Web</title>
+<link rel="icon" href="assets/img/favicon.gif">
+<link rel="stylesheet" href="css/membrane.css">
+<link rel="stylesheet" href="css/collective.css">
+</head>
+<body bgcolor="#000040" text="#000000" link="#330066" vlink="#660066" alink="#cc0000"
+      background="assets/img/bg_stars.gif">
+
+<!-- ============ top banner ============ -->
+<table width="760" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr><td height="40">&nbsp;</td></tr>
+  <tr><td align="center"><img src="assets/img/wordart.gif" alt="Marcy"></td></tr>
+  <tr><td height="20">&nbsp;</td></tr>
+</table>
+
+<!-- ============ the page ============ -->
+<div id="rawLayer"></div>
+
+<table width="760" border="0" cellspacing="0" cellpadding="12" align="center" id="pageTable" bgcolor="#fffbe6">
+  <tr>
+    <td width="50%" valign="top">
+
+      <p align="center"><font face="arial" size="6" color="#cc4400"><b>Marcy's Little Corner of the Web</b></font></p>
+      <p align="center"><font face="arial" size="2" color="#666666"><i>(or was)</i></font></p>
+      <img src="assets/img/div_rainbow.gif" alt="">
+
+      <p id="intro-1" class="drw">Hi, I'm Marcy. Welcome to my page. I'm sixteen and I live in Northvale, New Jersey. I like volleyball, piano, my friends, my family, and my computer. This page is kind of a mess because I'm still learning. Feel free to look around&mdash;I'm not mad at all.</p>
+
+      <p align="center" id="mood" class="drw">Today is a good day.</p>
+
+      <img src="assets/img/div_star.gif" alt="">
+
+      <!-- My Pix -->
+      <p><font face="arial" size="4" color="#003366"><b>&nbsp;&nbsp;&nbsp;My Pix</b></font></p>
+      <p>I'll be adding more pictures as I get them. Every picture here is a real picture of me or my friends, just <i>before</i> I got too good at computers and started deleting things. My scanner is kinda bad so sorry if they look weird!!</p>
+      <table class="album" border="0" cellspacing="8" cellpadding="2" align="center">
+        <tr>
+          <td align="center"><img src="assets/img/photo_marcy.jpg" width="160" height="120" border="1" alt="me with my volleyball"><br><font size="1">me, #9!!</font></td>
+          <td align="center"><img src="assets/img/photo_team.jpg" width="160" height="120" border="1" alt="my volleyball team"><br><font size="1">my team :)</font></td>
+        </tr>
+        <tr>
+          <td align="center"><img src="assets/img/photo_piano.jpg" width="160" height="120" border="1" alt="me practicing piano"><br><font size="1">practice (11 yrs!!)</font></td>
+          <td align="center"><img src="assets/img/photo_family.jpg" width="160" height="120" border="1" alt="summer at home with my brother and his friends"><br><font size="1">summer at home</font></td>
+        </tr>
+        <tr>
+          <td align="center"><img src="assets/img/photo_desk.jpg" width="160" height="120" border="1" alt="my computer and my room"><br><font size="1">my computer (i built it)</font></td>
+          <td align="center"><img src="assets/img/photo_hallway.jpg" width="160" height="120" border="1" alt="the hallway at school"><br><font size="1">school, ugh</font></td>
+        </tr>
+      </table>
+      <p align="center"><font size="2">what happened to the 4th picture?? <a href="#" onclick="M.threads.pix.view(event); return false;">click here</a></font></p>
+
+      <!-- Guestbook -->
+      <p><font face="arial" size="4" color="#003366"><b>&nbsp;&nbsp;&nbsp;My Guestbook</b></font> <img id="heart" src="assets/img/heart.gif" width="14" height="14" alt=""></p>
+      <p>If you found my page by accident, please sign my guestbook! I like knowing someone was here. There's no unsubscribe; this book is for you and me.</p>
+      <form method="post" action="#" onsubmit="M.threads.guest.submit(event); return false;">
+        <table>
+          <tr><td align="right"><label for="gbName"><font size="2">Name:</font></label></td><td><input type="text" id="gbName" name="name" size="18"></td></tr>
+          <tr><td align="right"><label for="gbEmail"><font size="2">E-mail:</font></label></td><td><input type="text" id="gbEmail" name="email" size="18"></td></tr>
+          <tr><td align="right"><label for="gbComment"><font size="2">Comment:</font></label></td><td><textarea id="gbComment" name="comment" rows="3" cols="24"></textarea></td></tr>
+          <tr><td colspan="2" align="center"><input type="submit" value="Sign my guestbook!!!"></td></tr>
+        </table>
+      </form>
+      <div id="guestList"></div>
+
+      <!-- The Quiz -->
+      <p><font face="arial" size="4" color="#003366"><b>&nbsp;&nbsp;&nbsp;The Quiz</b></font></p>
+      <p>No peeking at the answers.</p>
+      <form method="post" action="#" onsubmit="M.threads.quiz.submit(event); return false;">
+        <p><b>1.</b> Who is the best parent of me?</p>
+        <p><label class="qopt"><input type="radio" name="quiz" value="mom"> Mom</label> <label class="qopt"><input type="radio" name="quiz" value="dad"> Dad</label> <label class="qopt"><input type="radio" name="quiz" value="both"> Both</label> <label class="qopt"><input type="radio" name="quiz" value="machine"> Something else</label></p>
+        <p><b>2.</b> What grade am I in?</p>
+        <p><label class="qopt"><input type="radio" name="quiz" value="10"> 10th</label> <label class="qopt"><input type="radio" name="quiz" value="11"> 11th</label> <label class="qopt"><input type="radio" name="quiz" value="12"> 12th</label> <label class="qopt"><input type="radio" name="quiz" value="code"> Already in code</label></p>
+        <p><input type="submit" value="Check my answers!!!"></p>
+      </form>
+      <div id="quizResult"></div>
+      <div id="quizMsg" class="drw"></div>
+
+      <!-- The Counter -->
+      <p><font face="arial" size="4" color="#003366"><b>&nbsp;&nbsp;&nbsp;My Hit Counter</b></font></p>
+      <center>
+        <img src="assets/img/counter_1999.gif" id="counterImg" alt="counter">
+        <font size="4">You are visitor #<b id="counterNum">001999</b>.</font>
+      </center>
+      <p id="counterNote" class="drw">(My counter has been counting since before I learned how to fix the printer.)</p>
+
+      <!-- Webring -->
+      <p><font face="arial" size="4" color="#003366"><b>&nbsp;&nbsp;&nbsp;The Webring</b></font></p>
+      <p><a href="#" onclick="M.threads.ring.next(event); return false;">Next &gt;</a> &nbsp; <a href="#" onclick="M.threads.ring.prev(event); return false;">&lt; Prev</a></p>
+      <p id="ringStatus" class="drw">Node 47 of 48. Below this is a page that is just a page. <img id="spinner" src="assets/img/spinner.gif" width="16" height="16" alt=""></p>
+
+      <!-- Badges -->
+      <p><font face="arial" size="4" color="#003366"><b>&nbsp;&nbsp;&nbsp;The Badges</b></font></p>
+      <table border="0" cellspacing="4" cellpadding="2" align="center">
+        <tr>
+          <td><a href="http://www.netscape.com/reports/badges/badge-nav4.html"><img src="assets/img/badge_netscape.gif" border="0" alt="Netscape"></a></td>
+          <td><a href="http://www.microsoft.com/ie/badges/"><img src="assets/img/badge_ie.gif" border="0" alt="Internet Explorer"></a></td>
+        </tr>
+      </table>
+      <p align="center"><img src="assets/img/underconst.gif" alt="under construction"></p>
+
+    </td>
+    <td width="50%" valign="top">
+
+      <p align="center"><a href="news.html"><img src="assets/img/news.gif" alt="News/Now"></a></p>
+      <p align="center"><a href="now.html"><img src="assets/img/nowvis.gif" alt="Now Playing"></a></p>
+
+      <p><font face="arial" size="4" color="#003366"><b>&nbsp;&nbsp;&nbsp;Email Me</b></font></p>
+      <p>If you want to tell me something private, or just tell me that you think my pictures are <i>really</i> cool (they're not, but I'd like to hear it anyway), my email address is:</p>
+      <center><a href="mailto:marcy@angelfire.com"><img src="assets/img/gif_email.gif" alt="marcy@angelfire.com"></a></center>
+      <p><font size="2">(I can't check it very often. Don't be mad if I don't reply.)</font></p>
+
+      <p><font face="arial" size="4" color="#003366"><b>&nbsp;&nbsp;&nbsp;My Visitors</b></font></p>
+      <center>
+        <img src="assets/img/counter_1999.gif" id="counterImg2" alt="counter">
+        <font size="3">You are visitor #<b id="counterNum2">001999</b>.</font>
+      </center>
+
+      <p><font face="arial" size="4" color="#003366"><b>&nbsp;&nbsp;&nbsp;Another Webring</b></font></p>
+      <p><a href="#" onclick="M.threads.ring.next(event); return false;">Next &gt;</a> &nbsp; <a href="#" onclick="M.threads.ring.prev(event); return false;">&lt; Prev</a></p>
+
+      <p><img src="assets/img/underconst.gif" alt="under construction"></p>
+
+      <p align="center"><font size="1" color="#666666"><i>This page was created with Angelfire. I changed my mind about that, but the URL still points there.</i></font></p>
+      <p align="center"><font size="1" color="#666666"><i>Hosted by <a href="http://www.angelfire.com">Angelfire</a>, now at <a href="http://www.netscape.com">Netscape</a>, now <a href="http://127.0.0.1:8814/reconstruction.html">somewhere else</a>.</i></font></p>
+
+    </td>
+  </tr>
+</table>
+
+<!-- ============ marquee ============ -->
+<marquee onmouseover="this.stop()" onmouseout="this.start()" onclick="if(this.getAttribute('data-paused')){this.removeAttribute('data-paused');this.start()}else{this.setAttribute('data-paused','1');this.stop()}" scrollamount="4"
+         style="font-family: arial; font-size: 2; color:#555555;">
+  <font color="#ff0000"><b>★ ★ ★</b></font> FUN FACTS: I play volleyball. I play the piano. I have two friends and a dog. I am good at computers. <span id="m1" class="drw">I am not a robot.</span> <font color="#ff0000"><b>★ ★ ★</b></font>
+  <font color="#0066ff"><b>★ ★ ★</b></font> <span id="m2" class="drw"><i>Today is a good day.</i></span> <font color="#0066ff"><b>★ ★ ★</b></font>
+  <font color="#009900"><b>★ ★ ★</b></font> <span id="marqueeDate" class="drw">This page has been up since March 14, 1999.</span> <font color="#009900"><b>★ ★ ★</b></font>
+</marquee>
+
+<!-- ============ controls ============ -->
+<p align="center"><font size="1" color="#888888">
+  <a href="reconstruction.html">[ this page as the archivist reads it ]</a> &nbsp;|&nbsp;
+  <a href="#" id="restoreLink" style="display:none;">[ restore this page to the way it was ]</a>
+  <form id="unlockForm" style="display:none; margin-top:6px;">
+    <span id="unlockHint"></span> <label for="unlock">password:</label> <input type="password" id="unlock" size="14">
+    <input type="submit" value="restore">
+  </form>
+</font></p>
+
+<script src="js/texts.js"></script>
+<script src="js/decay.js"></script>
+<script src="js/collective-data.js"></script>
+<script src="js/collective.js"></script>
+<script src="js/collective-globe.js"></script>
+<script src="js/threads.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
